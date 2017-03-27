@@ -51,7 +51,6 @@ class BinaryHeap
 		end
 		self
 	end
-
 	alias :push :insert
 
 	def eject(element)
@@ -75,7 +74,9 @@ class BinaryHeap
 			parent_idx = 0
 			
 			until is_good?(parent_idx)
-				
+				child_idx = target_child_idx(parent_idx)
+				swap(parent_idx, child_idx)
+				parent_idx = child_idx
 			end
 		else
 			child_idx = @ary.size - 1
@@ -124,7 +125,8 @@ class BinaryHeap
 		true
 	end
 
-	def max_child_idx(parent_idx)
+	# return the max/min child index
+	def target_child_idx(parent_idx)
 		return nil if lchid(parent_idx).nil? && rchild(parent_idx).nil?
 
 		l = lchid(parent_idx)
