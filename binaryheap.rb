@@ -1,14 +1,6 @@
 require 'thread'
 
 class BinaryHeap
-	FIXNUM_MAX = ->{
-	  if RUBY_PLATFORM == 'java'
-	    2**63 - 1
-	  else
-	    2**(0.size * 8 - 2) - 1
-	  end
-	}.call
-
 	class Error < RuntimeError
   end
 
@@ -24,67 +16,73 @@ class BinaryHeap
   	end
   end
 
-	# options:
-	#  data: existing array 
-	#  max_size: max size constrain on underlying array length
-	def initialize(option={}, &block)
+	def initialize(data=nil, &block)
+		@cmp = block || ->(parent, child){ parent <=> child }
 		@mutex = Mutex.new
 
-		data = option[:data] || option['data']
-		@max_size = option[:max_size] || option['max_size'] || FIXNUM_MAX
-
-		if data
-			raise ParameterError.new("data exceeds max size") if data.length > max_size
-			@ary = init_from_data(data)
-		else
-			@ary = []
-		end 
-
-		@cmp = block || ->(parent, child){ parent <=> child }
+		raise ParameterError.new("type of data must be Array or its subclass") unless data.nil? || data.is_a?(Array)
+		@ary = data.nil? ? [] : build_from(data)
 	end
 
 	def insert(element)
-		@mutex.synchronize do 
-			raise HeapError.new("heap size exceeds max limitation") if @ary.size+1 > @max_size
+		@mutex.synchronize do
 			@ary.push(element) 
-			adjust(false)
+			adjust(:bottom_up)
 		end
 		self
 	end
 	alias :push :insert
 
-	def eject(element)
+	def eject
+		@mutex.synchronize do
+			return nil if empty?
+			e = @ary.first
+			@ary[0] = @ary.last
+			@ary.pop
+			adjust(:top_down)
+			e
+		end
+		self
 	end
 
-	alias :pop :eject
-
-
-	def size
-		@ary.size
-	end
-
- private
-	def init_from_data(data)
-
-	end
-
-	def adjust(top_down = true)
+	def adjust(direction = :top_down)
 		return if @ary.size < 2
-		if top_down
+		if direction == :top_down
 			parent_idx = 0
-			
 			until is_good?(parent_idx)
 				child_idx = target_child_idx(parent_idx)
 				swap(parent_idx, child_idx)
 				parent_idx = child_idx
 			end
-		else
+		elsif direction == :bottom_up
 			child_idx = @ary.size - 1
-			until @cmp.call(@ary[get_parent_idx(child_idx)], @ary[child_idx]) >= 0 || child_idx == 0 
+			parent_idx = p_idx(child_idx)
+			until child_idx == 0 || @cmp.call(@ary[parent_idx], @ary[child_idx]) >= 0
 			 	swap(parent_idx, child_idx)
 			 	child_idx = parent_idx
+			 	parent_idx = p_idx(child_idx)
 			end 
 		end
+	end
+
+	def top 
+		@ary.first
+	end
+
+	def data
+		@ary
+	end
+
+	# forward array methods 
+	def method_missing(name, *args, &blcok)
+		@ary.send(name, *args, &blcok)
+	end
+
+ private
+	def build_from(data)
+		heap = BinaryHeap.new
+		data.each{|e| heap.insert e}
+		heap.data
 	end
 
 	def swap(i, j)
@@ -93,7 +91,8 @@ class BinaryHeap
 		@ary[j] = temp
 	end
 
-	def get_parent_idx(child_idx)
+	def p_idx(child_idx)
+		return nil if child_idx == 0
 		child_idx%2 == 0 ? (child_idx-2)/2 : child_idx/2 
 	end
 
@@ -119,7 +118,7 @@ class BinaryHeap
 		end
 
 		if !rchild(idx).nil?
-			result false unless @cmp.call(@ary[idx], rchild(idx)) >= 0
+			return false unless @cmp.call(@ary[idx], rchild(idx)) >= 0
 		end
 
 		true
@@ -141,10 +140,3 @@ class BinaryHeap
 	end
 
 end
-
-
-# bh = BinaryHeap.new
-# bh.insert(2).insert(3)
-# p bh.size
-
-# p bh
