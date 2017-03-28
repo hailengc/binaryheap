@@ -9,7 +9,7 @@ class BinaryHeap
   		"Heap Error: #{self.to_s}"
   	end
   end
-
+ 	
   class ParameterError < Error
   	def message
   		"Parameter Error: #{self.to_s}"
