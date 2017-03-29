@@ -3,7 +3,17 @@ require 'binaryheap'
 class BinaryHeapTest < Minitest::Test
   def test_basic_init_with_no_parameter
     bh = BinaryHeap.new
-    assert bh.data != nil
-    assert bh.size == 0
+    refute_nil(bh.data)
+    assert_equal(bh.data.size, 0)
   end  
+
+  def test_basic_init_with_data
+  	data = []
+  	bh = BinaryHeap.new(data)
+  	refute_nil(bh.data)
+  	assert_equal(bh.data.size, 0)
+  end
+
+ private
+
 end

@@ -1,3 +1,3 @@
-source "https://rubygems.org"
+source "http://rubygems.org"
 
-gem "minitest"
+gem "minitest", "5.10.1"
