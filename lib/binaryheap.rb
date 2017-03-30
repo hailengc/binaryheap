@@ -42,7 +42,6 @@ class BinaryHeap
 			adjust(:top_down)
 			e
 		end
-		self
 	end
 
 	def adjust(direction = :top_down)
@@ -80,7 +79,7 @@ class BinaryHeap
 
  private
 	def build_from(data)
-		heap = BinaryHeap.new
+		heap = BinaryHeap.new(&(@cmp))
 		data.each{|e| heap.insert e}
 		heap.data
 	end
