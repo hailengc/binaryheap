@@ -35,7 +35,7 @@ class BinaryHeap
 
 	def eject
 		@mutex.synchronize do
-			return nil if empty?
+			return nil if @ary.empty?
 			e = @ary.first
 			@ary[0] = @ary.last
 			@ary.pop

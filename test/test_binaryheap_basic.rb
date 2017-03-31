@@ -28,7 +28,6 @@ class BinaryHeapTestBasic < BinaryHeapTest
 
   def test_basic_insert
     count = 100
-
     # max heap
     bh = BinaryHeap.new
     count.times do
@@ -49,18 +48,21 @@ class BinaryHeapTestBasic < BinaryHeapTest
 
 
   def test_basic_eject
-    count = 100
-    data = count.times.map{rand(-9999..9999)}
+    # ensure not crash when bh is empty
+    bh = BinaryHeap.new
+    assert_nil(bh.eject)
+    assert_equal(bh.size, 0)
 
+    count = 100
     # max heap 
+    data = count.times.map{rand(-9999..9999)}
     bh = BinaryHeap.new(data)
     data.sort! {|a, b| b <=> a}
     data.each do |e|
       assert_equal(bh.eject, e)
     end
-
-    data = count.times.map{rand(-9999..9999)}    
     # min heap
+    data = count.times.map{rand(-9999..9999)}    
     bh = BinaryHeap.new(data) {|parent, child| child <=> parent}
     data.sort!
     data.each do |e|
