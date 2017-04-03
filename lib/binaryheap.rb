@@ -1,7 +1,7 @@
 require 'thread'
 
 class BinaryHeap
-	class Error < RuntimeError
+  class Error < RuntimeError
   end
 
   class HeapError < Error
@@ -11,7 +11,7 @@ class BinaryHeap
   end
  	
   class ParameterError < Error
-  	def message
+		def message
   		"Parameter Error: #{self.to_s}"
   	end
   end
