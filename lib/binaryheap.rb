@@ -6,12 +6,12 @@ class BinaryHeap
 
   class HeapError < Error
   	def mesage
-  		"Heap Error: #{self.to_s}"
+      "Heap Error: #{self.to_s}"
   	end
   end
  	
   class ParameterError < Error
-		def message
+  	def message
   		"Parameter Error: #{self.to_s}"
   	end
   end
@@ -44,6 +44,18 @@ class BinaryHeap
 		end
 	end
 
+	def top 
+		@ary.first
+	end
+
+	def top=(element)
+		@ary[0] = element
+	end
+
+	def data
+		@ary
+	end
+
 	def adjust(direction = :top_down)
 		return if @ary.size < 2
 		if direction == :top_down
@@ -63,21 +75,14 @@ class BinaryHeap
 			end 
 		end
 	end
-
-	def top 
-		@ary.first
-	end
-
-	def data
-		@ary
-	end
-
+	
 	# forward array methods 
 	def method_missing(name, *args, &blcok)
 		@ary.send(name, *args, &blcok)
 	end
 
- private
+
+private
 	def build_from(data)
 		heap = BinaryHeap.new(&(@cmp))
 		data.each{|e| heap.insert e}

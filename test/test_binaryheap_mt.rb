@@ -49,6 +49,31 @@ class BinaryHeapMultiThreadTest < BinaryHeapTest
     assert_equal(result.sort!, data.sort!)
   end
 
+  def test_mt_producer_consumer
+    bh = BinaryHeap.new
+
+    producer_thread_count = 5
+    insert_count = 10000
+    producer_thread_count.times.map do
+      Thread.new do
+        insert_count.times{ bh.insert(rand(-9999..9999)) }
+      end
+    end.each(&:join)
+
+    sleep(0.00001)
+    result = []
+    Thread.new do
+      element = bh.eject
+      until element.nil?
+        result << element
+        element = bh.eject
+      end
+    end.join
+
+    assert_equal(result.size, producer_thread_count*insert_count)
+    assert(heap_valid?(bh), "heap is invalid")
+  end
+
  private
   def is_desc?(ary)
     (0..ary.size-2).each do |i|
