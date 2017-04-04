@@ -1,3 +1,5 @@
-**/lab.rb
 Gemfile.lock
+doc/
+.yardoc/
 .*~
+**/lab.rb
