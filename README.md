@@ -7,23 +7,21 @@ Internally, it uses an array as data store and a mutex to keep insert and eject 
 
 ## Install
 
-Using RubyGems:
 ```
 gem install binaryheap
 ```
 
-## Usage & Examples
+## Usage and Examples
 
 
 ## Issues Report and Contribute
-Please create issues and send me pull request.  
+Please create issues or send me pull requests.  
 
 
 ## Author
-Hailong Cao
-[mail](hailengc@gmail.com)
+Hailong Cao (hailengc@gmail.com)  
 [twitter](https://twitter.com/hailengc)
 
-## License & Copyrights
+## License and Copyrights
 MIT License  
 Copyright (c) 2017 Hailong Cao
