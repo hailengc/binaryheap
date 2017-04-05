@@ -22,5 +22,5 @@ Please create issues or send me pull requests.
 Hailong Cao ( hailengc@gmail.com | [twitter](https://twitter.com/hailengc) )
 
 ## License and Copyrights
-MIT License  
+[MIT License](https://choosealicense.com/licenses/mit/)  
 Copyright (c) 2017 Hailong Cao
