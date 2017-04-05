@@ -19,8 +19,7 @@ Please create issues or send me pull requests.
 
 
 ## Author
-Hailong Cao (hailengc@gmail.com)  
-[twitter](https://twitter.com/hailengc)
+Hailong Cao (hailengc@gmail.com | [twitter](https://twitter.com/hailengc) )
 
 ## License and Copyrights
 MIT License  
