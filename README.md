@@ -3,7 +3,9 @@
 ## About
 
 A standard [binary heap](https://en.wikipedia.org/wiki/Binary_heap) data structure implementation in ruby.  
-Internally, it uses an array as data store and a mutex to keep insert and eject opeations thread-safe (both on CRuby and JRuby).
+Internally, it uses an array as data store and a mutex to keep insert and eject opeations thread-safe (both on CRuby and JRuby).  
+
+## [rubydoc](http://www.rubydoc.info/gems/binaryheap/1.0.1)
 
 ## Install
 ```
