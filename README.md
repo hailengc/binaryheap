@@ -25,11 +25,11 @@ You can assign a self-defined comparator which returns negative, zero or positiv
 ```
   bh = BinaryHeap.new do |parent, child| 
     if parent.greater_than(child)
-      return 1
+      1
     elsif parent.equal_to(child)
-      return 0
+      0
     else 
-      return -1
+      -1
     end
   end
 ```
