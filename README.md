@@ -1,7 +1,3 @@
 # binaryheap
-A standard binary heap implementation in ruby. 
+A standard binary heap (https://en.wikipedia.org/wiki/Binary_heap) implementation in ruby. 
 
-
-Target:
-1. Thread safe (both cruby and jruby)
-2. No memeory issues
