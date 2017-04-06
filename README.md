@@ -62,23 +62,25 @@ All array methods will be forwarded to the underlying array data member:
 Find the kth max element in an array:
 ```
   def find_kth_max(array, k)
-    return nil if array.size < k
+    return nil if k<1 || array.size<k
 
-    i = 0
     bh = BinaryHeap.new
+    i = 0
     until bh.size == k
       bh.insert(array[i])
       i += 1
     end
 
-    (i..array.size-1).each do |j|
-      e = array[j]
-      if e < bh.top
-        # Instead of using insert and eject which automatically adjust the heap, you can fully control the heap operation:
-        # step 1: replace the root (max/min)
-        bh.top = e
-        # step 2: adjust the heap with direction (:top_down or :bottom_up) 
-        bh.adjust(:top_down)
+    unless i == array.size
+      (i..array.size-1).each do |j|
+        e = array[j]
+        if e < bh.top
+          # Instead of using insert and eject which automatically adjust the heap, you can fully control the heap operation:
+          # step 1: replace the root (max/min)
+          bh.top = e
+          # step 2: adjust the heap with direction (:top_down or :bottom_up) 
+          bh.adjust(:top_down)
+        end
       end
     end
 
