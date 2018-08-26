@@ -8,21 +8,21 @@ Internally, it uses an array as data store and a mutex to keep insert and eject 
 ## [rubydoc](http://www.rubydoc.info/gems/binaryheap/BinaryHeap)
 
 ## Install
-```
+``` ruby
   gem install binaryheap
 ```
 
 ## Usage
 By default, an empty **max** binary heap is created: 
-```
+``` ruby
   bh = BinaryHeap.new
 ```
 To create a **min** binary heap:
-```
+```ruby
   bh = BinaryHeap.new{|parent, child| child <=> parent}
 ```
 You can assign a self-defined comparator which returns negative, zero or positive values based on comparision result:
-```
+```ruby
   bh = BinaryHeap.new do |parent, child| 
     if parent.greater_than(child)
       1
@@ -34,7 +34,7 @@ You can assign a self-defined comparator which returns negative, zero or positiv
   end
 ```
 Use insert (alias push) and eject to add into or remove element from the heap:
-```
+``` ruby
   bh = BinaryHeap.new
   bh.insert(-3).insert(6).insert(-5).insert(17)
   p bh.size     #=> 3
@@ -45,7 +45,7 @@ Use insert (alias push) and eject to add into or remove element from the heap:
   end
 ```
 You can also create a binary heap based on existent array data:
-```
+```ruby
   array = [-2, 40, 13, 88]
   bh = BinaryHeap.new(array)
   until bh.empty?
@@ -53,14 +53,14 @@ You can also create a binary heap based on existent array data:
   end
 ```
 All array methods will be forwarded to the underlying array data member:
-```
+```ruby
   bh = BinaryHeap.new(10.times.map{rand (1..99)})
   p bh.size  # => 10
   p bh.first # same as bh.top, returns the biggest number in this case
 ```
 ## Example
 Find the kth max element in an array:
-```
+```ruby
   def find_kth_max(array, k)
     return nil if k<1 || array.size<k
 
