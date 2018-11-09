@@ -1,5 +1,5 @@
 require_relative 'binaryheap_test'
-require 'binaryheap'
+require_relative '../lib/binaryheap'
 require 'thread'
 require 'time'
 

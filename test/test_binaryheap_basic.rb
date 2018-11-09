@@ -1,6 +1,6 @@
 
 require_relative 'binaryheap_test'
-require 'binaryheap'
+require_relative '../lib/binaryheap'
 
 class BinaryHeapTestBasic < BinaryHeapTest
   def test_basic_init_with_no_parameter
