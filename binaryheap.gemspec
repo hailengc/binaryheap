@@ -1,8 +1,8 @@
 Gem::Specification.new do |s|
   s.author      = 'Hailong Cao'
   s.name        = 'binaryheap'
-  s.version     = '1.0.1'
-  s.date        = '2017-04-05'
+  s.version     = '1.1.0'
+  s.date        = '2018-11-09'
   s.summary     = "binary heap implementation"
   s.description = <<-EOF
     A standard binary heap implementation in ruby.
